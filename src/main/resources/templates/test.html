@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http:/www.thymeleaf.org"
+				xmlns:sec="http:/www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+  	<!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+	<!--CSS -->
+	
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+<title>
+       АСТУЭ
+</title> 
+        <!-- add icon link -->
+        <link rel = "icon" href="images/home-thumbnail.png" type = "image/x-icon">
+ </head>
+<body  class="p-1 mb-0 bg-light text-black">
+		
+
+
+
+
+<form method="POST" th:action="@{/test}" th:object="${testBody}">
+  <div>
+    <input type="text" th:field="*{message}" />
+  </div>
+  
+  <div>
+    <input type="submit" value="Submit" />
+  </div>
+</form>
+
+
+
+
+
+</body>
+</html>
