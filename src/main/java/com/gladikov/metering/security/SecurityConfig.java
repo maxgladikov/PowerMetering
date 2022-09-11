@@ -48,17 +48,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		http
         .authorizeRequests()
         	.antMatchers("/admin").hasRole("ADMIN")
-            .antMatchers("/", "/home").permitAll();
+            .antMatchers("/", "/home","/listusers/*","/finduser/*").permitAll();
             
 //            .anyRequest().authenticated();
     http
         .formLogin()
-            .loginPage("/login")
-            .permitAll()
+            .loginPage("/login").permitAll()
             .and()
-        .logout()
-            .permitAll()
-            	.logoutSuccessUrl("/index");
+            .logout().permitAll()
+            .and()
+            .exceptionHandling().accessDeniedPage("/403");
 		
 		
 		

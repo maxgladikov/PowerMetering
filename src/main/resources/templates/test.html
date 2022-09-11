@@ -7,10 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
 	<!--CSS -->
-	
-   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<link href="css/style2.css" rel="stylesheet">
+	<!-- JS -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
+  	<script ssrc="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 
 <title>
        АСТУЭ
@@ -21,20 +21,60 @@
 <body  class="p-1 mb-0 bg-light text-black">
 		
 
-
-
-
-<form method="POST" th:action="@{/test}" th:object="${testBody}">
-  <div>
-    <input type="text" th:field="*{message}" />
-  </div>
-  
-  <div>
-    <input type="submit" value="Submit" />
-  </div>
-</form>
-
-
+<div class="wrapper">
+  <header class="page-header">
+    <nav>
+      <h2 class="logo">LOGO</h2>
+      <ul>
+        <li>
+          <a href="">Work</a>
+        </li>
+        <li>
+          <a href="">Services</a>
+        </li>
+        <li>
+          <a href="">Team</a>
+        </li>
+        <li>
+          <a href="">Careers</a>
+        </li>
+      </ul>
+      <button class="cta-contact">Get in touch</button>
+    </nav>
+  </header>
+  <main class="page-main">
+    <div>
+      <h1>We are here to help you</h1>
+      <p>One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin.</p>
+      <p>It wasn't a dream. His room, a proper human.</p>
+    </div>
+  </main>
+  <footer class="page-footer">
+    <small>© Copyright 2018. All rights reserved.</small>
+    <ul>
+      <li>
+        <a href="" target="_blank">
+          <i class="icon ion-logo-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a href="" target="_blank">
+          <i class="icon ion-logo-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a href="" target="_blank">
+          <i class="icon ion-logo-linkedin"></i>
+        </a>
+      </li>
+      <li>
+        <a href="" target="_blank">
+          <i class="icon ion-logo-github"></i>
+        </a>
+      </li>
+    </ul>
+  </footer>
+</div>
 
 
 

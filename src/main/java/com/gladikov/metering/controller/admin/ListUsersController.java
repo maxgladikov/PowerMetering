@@ -34,17 +34,39 @@ public class ListUsersController {
 		List<User> users=  userRepository.findAll();
 		
 		model.addAttribute("users", users);
-		return "users"; 
+		return "admin/users"; 
 		}
 	@PostMapping("/saveuser") 
 	public String saveUser(User user) {
 		System.out.println("Id:"+user.getId()+"***************************");
-		
+		System.out.println("Name:"+user.getName()+"***************************");
+		System.out.println("pass:"+user.getPassword()+"***************************");
 		System.out.println("Active:"+user.getActive()+"***************************");
 		System.out.println("ActiveString:"+user.getActiveString()+"***************************");
-		System.out.println("Name:"+user.getName()+"***************************");
-		//userRepository.save(user);
-		return "redirect:/users";
+		user.setPassword(encoder.encode(user.getPassword()));
+		user.setActive(user.getActiveString().equalsIgnoreCase("true"));
+		userRepository.save(user);
+		return "redirect:/listusers";
+	}
+	@PostMapping("/deleteuser") 
+	public String deleteUser(User user) {
+		System.out.println(user.getId()+"***********************");
+		userRepository.delete(user);
+		return "redirect:/listusers";
+	}
+	
+	@PostMapping("/adduser") 
+	public String addUser(User user) {
+//		userRepository.save(new User(user.getUserName(),user.getPassword(),"ROLE_ADMIN",true));
+//		userRepository.save(new User(name,encoder.encode(password),roles,true));
+//		userRepository.save(user);
+		System.out.println(user.getName()+"**********************************************");
+		System.out.println(user.getPassword()+"**********************************************");
+		user.setPassword(encoder.encode(user.getPassword()));
+		user.setActive(true);
+		userRepository.save(new User(user.getName(),user.getPassword(),user.getRoles()));
+//		userRepository.delete(user);;
+		return "redirect:/listusers";
 	}
 	
 	@GetMapping("/finduser/{id}")

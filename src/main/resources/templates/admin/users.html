@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http:/www.thymeleaf.org"
+				xmlns:sec="http:/www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+  	<!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--CSS -->
+	<!-- Bootstrap 5 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css">
+    <!-- Bootstrap Font Icon CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+	<!-- JQuery -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+	<!-- Bootstrap JS Bundle with Popper -->
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</head>
+<body  class="p-1 mb-0 bg-light text-black" >
+
+
+			
+<div class="container-fluid" >
+	<div class="row  align-items-center">
+	    <div class="col-sm ">
+			<button id="adduser"   class="btn btn-secondary border-0 rounded-0"><span class="bi-plus">Add user</span> </button>
+	    </div>
+  	</div>
+  		<div th:if="${ not#lists.isEmpty(users)}">
+	  		<div  class="table-responsive-sm">
+		  		<table border="0" class="table table-striped  table-bordered  border-primary align-middle">
+			  		<thead class="thead-dark">
+			          <tr class="text-center w-15 p-3">
+			              <th>Id</th>
+			              <th>Name</th>
+			              <th>Password</th>
+			              <th>Role</th>
+			              <th>Active</th>
+			              <th>Edit</th>
+			          </tr>
+			        </thead>
+			        
+		        	<tbody>
+		            <tr   			class="text-center" 
+		            				th:each="user, iStat: ${users}"
+									th:style="${iStat.odd}? 'font-weight: bold;'"
+									th:alt-title="${iStat.even}? 'even' : 'odd'">
+		              	<td th:text="${user.id}" />
+		              	<td th:text="${user.name}" />
+		              	<td th:text="${user.password}" />
+		              	<td th:text="${user.roles}" />
+						<td th:text="${user.active}" />
+						<td style="text-align:center;"> 
+									<a th:href="@{/finduser/{id}(id=${user.id})}" class="btn btn-secondary border-0 btn-sm rounded-0 edit"   data-bs-toggle="modal" data-bs-target="#elementModal"><span class="bi-pencil"></span></a>
+									<a th:href="@{/finduser/{id}(id=${user.id})}" class="btn btn-secondary border-0 btn-sm rounded-0 delete" 	data-bs-toggle="modal" data-bs-target="#elementModal"><span class="bi-trash"></span></a>
+						</td>
+		            </tr>
+		            </tbody>
+		          <table>
+	          </div>
+        </div>
+ 	</div>	
+			     
+
+
+    <!-- USER MODAL -->
+    <!-- EDIT -->
+    <div class="userForm">
+      <form  th:action="@{/saveuser}" method="post">
+
+        <div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edit user</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+					
+				<div class="modal-body">
+	                <div class="form-group">
+	                   <input type="hidden" class="form-control" id="id" name="id" value=""/>
+	                </div>
+              	</div>
+
+				<div class="modal-body">
+                <div class="form-group">
+                  <label for="name" class="col-form-label">name:</label>
+                  <input type="text" class="form-control" id="name"  name="name" value="" />
+                </div>
+              </div>
+              
+              <div class="modal-body">
+                <div class="form-group">
+                  <label for="password" class="col-form-label">password:</label>
+                  <input type="text" class="form-control" id="password"  name="password" value="" />
+                </div>
+              </div>
+              
+              <div class="modal-body">
+                <div class="form-group">
+                  <label for="roles" class="col-form-label">ROLE:</label>
+                  <input type="text" class="form-control" id="role" name="roles"  value="" />
+                </div>
+              </div>
+              
+              <div class="modal-body">
+               <div class="form-group">
+                <input type="text" class="form-control" id="activeString" name="activeString"  value="" />
+			    <input type="checkbox"  for="active" class="form-check-input" id="active" name="active" value="">
+			    <label class="form-check-label" for="exampleCheck1">Active</label>
+			  </div>
+			  </div>
+			  
+
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <input type="submit" class="btn btn-primary" value="save" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+	<!-- END MODAL -->
+	
+	<!-- ADD USER -->
+	 <div class="userAddForm">
+      <form  th:action="@{/adduser}" method="post">
+
+        <div class="modal fade" id="userAddModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add user</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+					
+				<div class="modal-body">
+                <div class="form-group">
+                  <label for="name" class="col-form-label">name:</label>
+                  <input type="text" class="form-control" id="name"  name="name" value="" />
+                </div>
+              </div>
+              
+              <div class="modal-body">
+                <div class="form-group">
+                  <label for="password" class="col-form-label">password:</label>
+                  <input type="text" class="form-control" id="password"  name="password" value="" />
+                </div>
+              </div>
+              
+              <div class="modal-body">
+                <div class="form-group">
+                  <label for="roles" class="col-form-label">ROLE:</label>
+                  <input type="text" class="form-control" id="role" name="roles"  value="" />
+                </div>
+              </div>
+
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <input type="submit" class="btn btn-primary" value="ADD" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <!-- END MODAL -->
+	
+	<!-- DELETE -->
+	 <div class="userDeleteForm">
+      <form  th:action="@{/deleteuser}" method="post">
+
+        <div class="modal fade" id="userDeleteModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Delete user</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+					
+				<div class="modal-body">
+	                <div class="form-group">
+	                   <input type="hidden" class="form-control" id="id" name="id" value=""/>
+	                </div>
+              	</div>
+				<div class="modal-body">
+	                <div class="form-group">
+	                   <p> Are you sure?</p>
+	                </div>
+              	</div>
+
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <input type="submit" class="btn btn-primary" value="delete" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <!-- END MODAL -->
+
+
+
+
+
+	<script type="text/javascript" th:src="@{js/edituser.js}" src="../static/js/edituser.js"></script>
+
+</body>
+</html>
